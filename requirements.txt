@@ -1,0 +1,11 @@
+streamlit
+google-api-core
+google-auth
+google-cloud-core
+google-gax
+google-resumable-media
+googleapis-common-protos
+requests
+google.generativeai
+python-docx
+googletrans==4.0.0-rc1
