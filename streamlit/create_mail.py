@@ -73,7 +73,7 @@ download_button = False
 
 if submit_button:
     if user_input.strip() == "done":
-        st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
+        st.warning("Thank you! You have completed the conversation.")
     else:
         # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
         english_input = translate_text(user_input, "en")
@@ -83,7 +83,7 @@ if submit_button:
         translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
-        if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
+        if "The bot can only assist in CV creation. Please enter the CV related prompt." not in ai_response:
             if download_button:  # Menampilkan tombol unduh jika respons tersedia
                 file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
