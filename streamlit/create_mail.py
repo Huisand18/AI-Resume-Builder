@@ -30,82 +30,10 @@ def interact_with_ai(user_input, context):
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
-
-# Fungsi untuk translate 10 bahasa UNESCO
-def translate_to_indonesian(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='id')
+# Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
+def translate_text(text, dest_language):
+    translation = translator.translate(text, dest=dest_language)
     return translation.text
-
-def translate_to_english(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='en')
-    return translation.text
-
-def translate_to_spanish(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='es')
-    return translation.text
-
-def translate_to_french(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='fr')
-    return translation.text
-
-def translate_to_hindi(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='hi')
-    return translation.text
-
-def translate_to_russian(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='ru')
-    return translation.text
-
-def translate_to_italian(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='it')
-    return translation.text
-
-def translate_to_portuguese(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='pt')
-    return translation.text
-
-def translate_to_arabic(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='ar')
-    return translation.text
-
-def translate_to_mandarin(text):
-    translator = Translator()
-    translation = translator.translate(text, dest='zh-CN')
-    return translation.text
-
-def translate_response(response, language):
-    if language == "Indonesian":
-        return translate_to_indonesian(response)
-    elif language == "English":
-        return translate_to_english(response)
-    elif language == "Spanish":
-        return translate_to_spanish(response)
-    elif language == "French":
-        return translate_to_french(response)
-    elif language == "Hindi":
-        return translate_to_hindi(response)
-    elif language == "Russian":
-        return translate_to_russian(response)
-    elif language == "Italian":
-        return translate_to_italian(response)
-    elif language == "Portuguese":
-        return translate_to_portuguese(response)
-    elif language == "Arabic":
-        return translate_to_arabic(response)
-    elif language == "Mandarin":
-        return translate_to_mandarin(response)
-    else:
-        return response
-
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
@@ -150,7 +78,7 @@ if submit_button:
         ai_response = interact_with_ai(user_input, context_bot2)
         download_button = True 
         
-        translated_response = translate_response(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
+        translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
         if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
