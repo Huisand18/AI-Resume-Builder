@@ -17,13 +17,12 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
-def interact_with_ai(user_input, defaults, context):
+def interact_with_ai(user_input, context):
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
 
     if contains_cv_keyword:
         response = palm.chat(
-            **defaults,
             context=context,
             messages=[user_input]
         )
@@ -148,7 +147,7 @@ if submit_button:
     if user_input.strip() == "done":
         st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
     else:
-        ai_response = interact_with_ai(user_input, defaults_bot1, context_bot2)
+        ai_response = interact_with_ai(user_input, context_bot2)
         download_button = True 
         
         translated_response = translate_response(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
