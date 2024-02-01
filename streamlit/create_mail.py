@@ -32,8 +32,11 @@ def interact_with_ai(user_input, context):
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
-    translation = translator.translate(text, dest=dest_language)
-    return translation.text
+    if text:  # Memeriksa apakah teks tidak kosong
+        translation = translator.translate(text, dest=dest_language)
+        return translation.text
+    else:
+        return None
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
