@@ -18,8 +18,14 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
 def interact_with_ai(user_input, context):
-    if user_input.strip() == "":
-        return "Please enter a valid input."
+    if user_input is None:
+        # Menghapus input yang bernilai None
+        user_input = ""
+        print("Input telah dihapus.")
+    else:
+        # Mengganti input yang bernilai None dengan nilai yang diinginkan
+        user_input = user_input.replace("None", "")
+        print("Input telah diperbarui.")
 
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
@@ -29,12 +35,9 @@ def interact_with_ai(user_input, context):
             context=context,
             messages=[user_input]
         )
-        if response.last is not None:
-            return response.last
-        else:
-            return ""
+        return response.last
     else:
-        return "The bot can only assist in CV creation. Please enter the CV related prompt."
+        return "Bot hanya dapat membantu dalam pembuatan CV. Silakan masukkan prompt yang terkait dengan CV."
 
 
 
