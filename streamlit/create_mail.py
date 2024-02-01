@@ -169,7 +169,7 @@ if bot_option == "Create E-Mail":
     st.text(" ")
 else:
     st.title("Create CV")
-    st.text("Gunakan keyword yang sesuai untuk membuat cv : ")
+    st.text("Use appropriate keywords to create CV: : ")
     st.text("'write cv', 'compose cv', 'create cv'")
     st.text(" ")
 
