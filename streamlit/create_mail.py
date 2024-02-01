@@ -15,33 +15,8 @@ translator = Translator()
 # Konfigurasi API
 palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
-defaults_bot1 = {
-    'model': 'models/chat-bison-001',
-    'temperature': 0.25,
-    'candidate_count': 1,
-    'top_k': 40,
-    'top_p': 0.95,
-}
-
-context_bot1 = "Given a topic, write emails in a concise, professional manner for"
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
-def interact_with_bot1(user_input, defaults, context):
-    # Hanya berinteraksi jika prompt terkait email
-    email_keywords = ['write email', 'compose email', 'create email', 'email content']
-    contains_email_keyword = any(keyword in user_input.lower() for keyword in email_keywords)
-
-    if contains_email_keyword:
-        response = palm.chat(
-            **defaults,
-            context=context,
-            messages=[user_input]
-        )
-        return response.last
-    else:
-        return "The bot can only assist in email creation. Please enter the email related prompt."
-
-# Fungsi untuk berinteraksi dengan AI untuk prompt yang terkait dengan CV
 def interact_with_ai(user_input, defaults, context):
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
@@ -134,15 +109,6 @@ def translate_response(response, language):
 
 
 # Fungsi untuk menyimpan ke file Word
-def save_to_word_bytesio(content):
-    doc_stream = BytesIO()
-    doc = Document()
-    doc.add_paragraph(content)
-    doc.save(doc_stream)
-    doc_stream.seek(0)
-    return doc_stream
-
-# Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
     # Mendapatkan timestamp saat ini untuk membuat nama file unik
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
@@ -151,7 +117,7 @@ def save_to_word(content, bot_option):
     random_string = ''.join(random.choices(string.ascii_letters + string.digits, k=4))
 
     # Menambahkan data ke dokumen Word dengan nama file yang unik
-    file_prefix = "E-Mail" if bot_option == "Create E-Mail" else "CV"
+    file_prefix = "CV"
     file_name = f"{file_prefix}_{timestamp}_{random_string}.docx"
     doc = Document()
     doc.add_paragraph(content)
@@ -161,13 +127,8 @@ def save_to_word(content, bot_option):
 
 st.title("Automating CV Creation with AI")
 
-bot_option = st.sidebar.radio("Select Bot:", ("Create E-Mail", "Create CV"))
-if bot_option == "Create E-Mail":
-    st.title("Create E- Mail")
-    st.text("Gunakan keyword yang sesuai untuk membuat e-mail : ")
-    st.text("'write email', 'compose email', 'create email', 'email content'")
-    st.text(" ")
-else:
+bot_option = st.sidebar.radio("Select Bot:", ("Create CV",))
+if bot_option == "Create CV":
     st.title("Create CV")
     st.text("Use appropriate keywords to create CV: : ")
     st.text("'write cv', 'compose cv', 'create cv'")
@@ -187,12 +148,8 @@ if submit_button:
     if user_input.strip() == "done":
         st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
     else:
-        if bot_option == "Create E-Mail":
-            ai_response = interact_with_bot1(user_input, defaults_bot1, context_bot1)
-            download_button = True  # Mengaktifkan tombol unduh jika respons dari Bot 1 tersedia
-        else:
-            ai_response = interact_with_ai(user_input, defaults_bot1, context_bot2)
-            download_button = True 
+        ai_response = interact_with_ai(user_input, defaults_bot1, context_bot2)
+        download_button = True 
         
         translated_response = translate_response(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
