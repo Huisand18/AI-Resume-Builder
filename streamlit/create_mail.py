@@ -159,7 +159,7 @@ def save_to_word(content, bot_option):
 
     return file_name
 
-st.title("Automating Email and CV Creation with AI")
+st.title("Automating CV Creation with AI")
 
 bot_option = st.sidebar.radio("Select Bot:", ("Create E-Mail", "Create CV"))
 if bot_option == "Create E-Mail":
@@ -174,7 +174,7 @@ else:
     st.text(" ")
 
 st.sidebar.markdown(
-    '<div style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 10px; font-size: 15px; color: #ffff; box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: flex-start;"><img src="https://cdn-icons-png.flaticon.com/512/106/106852.png" style="width: 20px; margin-right: 5px;"> Copyright by Frederick H.S</div>',
+    '<div style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 10px; font-size: 15px; color: #ffff; box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: flex-start;"><img src="https://cdn-icons-png.flaticon.com/512/106/106852.png" style="width: 20px; margin-right: 5px;"> Copyright by Frederick H.S </div>',
     unsafe_allow_html=True
 )
 
