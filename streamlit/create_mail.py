@@ -32,8 +32,11 @@ def interact_with_ai(user_input, context):
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
-    translation = translator.translate(text, dest=dest_language)
-    return translation.text
+    if text is not None:
+        translation = translator.translate(text, dest=dest_language)
+        return translation.text
+    else:
+        return ""
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
@@ -72,30 +75,27 @@ submit_button = st.button("Submit")
 download_button = False
 
 if submit_button:
-    if not user_input.strip():
-        st.warning("Please enter a valid prompt.")
+    if user_input.strip() == "done":
+        st.warning("Thank you! You have completed the conversation.")
     else:
-        try:
-            # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
-            english_input = translate_text(user_input, "en")
-            ai_response = interact_with_ai(english_input, context_bot2)
-            download_button = True 
-            
-            translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
-            st.text_area("Result (Translated):", value=translated_response, height=200)
+        # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
+        english_input = translate_text(user_input, "en")
+        ai_response = interact_with_ai(english_input, context_bot2)
+        download_button = True 
+        
+        translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
+        st.text_area("Result (Translated):", value=translated_response, height=200)
 
-            if "The bot can only assist in CV creation. Please enter the CV related prompt." not in ai_response:
-                if download_button:  # Menampilkan tombol unduh jika respons tersedia
-                    file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
+        if "The bot can only assist in CV creation. Please enter the CV related prompt." not in ai_response:
+            if download_button:  # Menampilkan tombol unduh jika respons tersedia
+                file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
-                    # Menampilkan tombol unduh dengan tautan ke file output.docx
-                    st.markdown(
-                        f'<a href="data:file/docx;base64,{base64.b64encode(open(file_name, "rb").read()).decode()}" '
-                        f'download="{file_name}" '
-                        f'style="background-color:#008CBA;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;margin-top:10px;">'
-                        f'Download Result as Word'
-                        f'</a>',
-                        unsafe_allow_html=True
-                    )
-        except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
+                # Menampilkan tombol unduh dengan tautan ke file output.docx
+                st.markdown(
+                    f'<a href="data:file/docx;base64,{base64.b64encode(open(file_name, "rb").read()).decode()}" '
+                    f'download="{file_name}" '
+                    f'style="background-color:#008CBA;color:white;padding:10px 20px;text-decoration:none;border-radius:5px;display:inline-block;margin-top:10px;">'
+                    f'Download Result as Word'
+                    f'</a>',
+                    unsafe_allow_html=True
+                )
