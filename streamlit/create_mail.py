@@ -18,29 +18,22 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
 def interact_with_ai(user_input, context):
-    # Membuat daftar kata kunci untuk CV
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
 
     if contains_cv_keyword:
-        # Memeriksa apakah input tidak None
-        if user_input is not None:
-            response = palm.chat(
-                context=context,
-                messages=[user_input]
-            )
-            return response.last
+        response = palm.chat(
+            context=context,
+            messages=[user_input]
+        )
+        return response.last
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
-
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
-    if text:  # Memeriksa apakah teks tidak kosong
-        translation = translator.translate(text, dest=dest_language)
-        return translation.text
-    else:
-        return None
+    translation = translator.translate(text, dest=dest_language)
+    return translation.text
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
@@ -80,7 +73,7 @@ download_button = False
 
 if submit_button:
     if user_input.strip() == "done":
-        st.warning("Thank you! You have completed the conversation.")
+        st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
     else:
         # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
         english_input = translate_text(user_input, "en")
@@ -90,7 +83,7 @@ if submit_button:
         translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
-        if "The bot can only assist in CV creation. Please enter the CV related prompt." not in ai_response:
+        if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
             if download_button:  # Menampilkan tombol unduh jika respons tersedia
                 file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
