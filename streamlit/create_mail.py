@@ -30,11 +30,12 @@ def interact_with_ai(user_input, context):
             messages=[user_input]
         )
         if response.last is None:
-            return "The bot's response contains None value. Please review your input and try again."
+            return f"The bot's response contains None value for input: {user_input}. Please review your input and try again."
         else:
             return response.last
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
+
 
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
