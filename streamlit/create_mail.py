@@ -66,7 +66,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-user_input = st.text_input("Prompt : ")
+user_input = st.text_area("Prompt : ")
 language_choice = st.selectbox("Select Language for Translation:", ("Indonesian", "English", "Spanish", "French", "Hindi", "Russian", "Italian", "Portuguese", "Arabic", "Mandarin"))
 submit_button = st.button("Submit")
 download_button = False
@@ -75,7 +75,9 @@ if submit_button:
     if user_input.strip() == "done":
         st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
     else:
-        ai_response = interact_with_ai(user_input, context_bot2)
+        # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
+        english_input = translate_text(user_input, "en")
+        ai_response = interact_with_ai(english_input, context_bot2)
         download_button = True 
         
         translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
