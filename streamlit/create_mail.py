@@ -30,9 +30,12 @@ def interact_with_ai(user_input, context):
             messages=[user_input]
         )
         if response.last is None:
-            return f"The bot's response contains None value for input: {user_input}. Please review your input and try again."
-        else:
-            return response.last
+            user_input = user_input.replace("create cv", "compose cv")  # Mengganti keyword yang tidak valid
+            response = palm.chat(
+                context=context,
+                messages=[user_input]
+            )
+        return response.last
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
