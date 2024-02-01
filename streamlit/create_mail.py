@@ -29,11 +29,12 @@ def interact_with_ai(user_input, context):
                 context=context,
                 messages=[user_input]
             )
-            return response.last
+            return response.last or ""  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
         else:
-            return None  # Mengembalikan None jika input adalah None
+            return ""  # Mengembalikan string kosong jika input adalah None
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
+
 
 
 
