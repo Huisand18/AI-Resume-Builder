@@ -26,9 +26,10 @@ def interact_with_ai(user_input, context):
             context=context,
             messages=[user_input]
         )
-        return response.last
+        return response.last or ""
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
+
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
