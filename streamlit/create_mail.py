@@ -36,7 +36,7 @@ def translate_text(text, dest_language):
         return ""  # Mengembalikan string kosong jika teks bernilai None
     else:
         translation = translator.translate(text, dest=dest_language)
-        return translation.text
+        return translation.text if translation else ""  # Mengembalikan teks terjemahan atau string kosong jika terjemahan tidak berhasil
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
