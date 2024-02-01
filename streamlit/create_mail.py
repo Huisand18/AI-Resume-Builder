@@ -18,15 +18,6 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
 def interact_with_ai(user_input, context):
-    if user_input is None:
-        # Menghapus input yang bernilai None
-        user_input = ""
-        print("Input telah dihapus.")
-    else:
-        # Mengganti input yang bernilai None dengan nilai yang diinginkan
-        user_input = user_input.replace("None", "")
-        print("Input telah diperbarui.")
-
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
 
@@ -35,16 +26,17 @@ def interact_with_ai(user_input, context):
             context=context,
             messages=[user_input]
         )
-        return response.last
+        return response.last or ""  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
     else:
-        return "Bot hanya dapat membantu dalam pembuatan CV. Silakan masukkan prompt yang terkait dengan CV."
-
-
+        return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
-    translation = translator.translate(text, dest=dest_language)
-    return translation.text
+    if text is None:
+        return ""  # Mengembalikan string kosong jika teks bernilai None
+    else:
+        translation = translator.translate(text, dest=dest_language)
+        return translation.text
 
 # Fungsi untuk menyimpan ke file Word
 def save_to_word(content, bot_option):
@@ -84,7 +76,7 @@ download_button = False
 
 if submit_button:
     if user_input.strip() == "done":
-        st.warning("Terima kasih! Anda telah menyelesaikan percakapan.")
+        st.warning("Thank you! You have completed the conversation.")
     else:
         # Terjemahkan prompt ke bahasa Inggris terlebih dahulu
         english_input = translate_text(user_input, "en")
