@@ -32,6 +32,15 @@ def interact_with_ai(user_input, context):
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
+def translate_to_mandarin(text):
+    translator = Translator()
+    translation = translator.translate(text, dest='zh-CN')
+    return translation.text
+def translate_response(response, language):
+    if language == "Mandarin":
+        return translate_to_mandarin(response)
+    else:
+        return response
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
     if text is None:
