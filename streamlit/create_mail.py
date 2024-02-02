@@ -22,6 +22,7 @@ def interact_with_ai(user_input, context):
 
     if contains_cv_keyword:
         response = palm.chat(
+            **defaults,
             context=context,
             messages=[user_input]
         )
