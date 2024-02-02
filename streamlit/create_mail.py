@@ -1,13 +1,12 @@
 import streamlit as st
 import google.generativeai as palm
-from docx import Document
 import base64
 import datetime
 import random
 import string
 
+from docx import Document
 from io import BytesIO
-
 from googletrans import Translator
 
 translator = Translator()
@@ -26,7 +25,7 @@ def interact_with_ai(user_input, context):
             context=context,
             messages=[user_input]
         )
-        return response.last or ""  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
+        return response.last or "a"  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
