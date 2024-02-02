@@ -65,7 +65,7 @@ st.title("Automating CV Creation with AI")
 bot_option = st.sidebar.radio("Select Bot:", ("Create CV",))
 if bot_option == "Create CV":
     st.title("Create CV")
-    st.text("Use appropriate keywords to create CV: : ")
+    st.text("Use appropriate keywords: ")
     st.text("'write cv', 'compose cv', 'create cv'")
     st.text(" ")
 
