@@ -25,7 +25,11 @@ def interact_with_ai(user_input, context):
             context=context,
             messages=[user_input]
         )
-        return palm.chat()  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
+        return contains_cv_keyword:
+        response = palm.chat(
+            context=context,
+            messages=[user_input]
+        )  # Mengembalikan respons terakhir atau string kosong jika respons adalah None
     else:
         return "The bot can only assist in CV creation. Please enter the CV related prompt."
 
