@@ -1,6 +1,6 @@
 import streamlit as st
-import google.generativeai as palm
 from docx import Document
+import google.generativeai as palm
 import base64
 import datetime
 import random
@@ -59,6 +59,40 @@ def save_to_word_ats(content, bot_option):
     doc.save(file_name)
 
     return file_name
+
+# Helper function to bold text
+def bold_text(text):
+    return f"**{text}**"
+
+# Helper function to process education section
+def process_education(text):
+    education_details = text.split("\n")
+    education = []
+    for edu_detail in education_details:
+        parts = edu_detail.split(",")
+        if len(parts) == 4:
+            education.append({
+                "degree": parts[0].strip(),
+                "institution": parts[1].strip(),
+                "graduation": parts[2].strip(),
+                "gpa": parts[3].strip()
+            })
+    return education
+
+# Helper function to process experience section
+def process_experience(text):
+    experience_details = text.split("\n")
+    experience = []
+    for exp_detail in experience_details:
+        parts = exp_detail.split(",")
+        if len(parts) == 4:
+            experience.append({
+                "title": parts[0].strip(),
+                "company": parts[1].strip(),
+                "location": parts[2].strip(),
+                "dates": parts[3].strip()
+            })
+    return experience
 
 st.title("Automating CV Creation with AI")
 
