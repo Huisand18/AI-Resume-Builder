@@ -82,18 +82,8 @@ language_choices = {
     "Italian": "it",
     "Portuguese": "pt",
     "Arabic": "ar",
-    "Chinese (Simplified)": "zh-CN",
+    "Mandarin": "zh-CN",
 }
-
-selected_language = st.selectbox("Select Language for Translation:", list(language_choices.keys()))
-language_code = language_choices[selected_language]
-if language_code == "zh-CN":
-    selected_language_display = "Mandarin"
-else:
-    selected_language_display = selected_language
-
-st.write(f"You selected {selected_language_display} for translation.")
-
 submit_button = st.button("Submit")
 download_button = False
 
