@@ -16,7 +16,7 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
-def interact_with_ai(user_input, context):
+def interact_with_ai(user_input, defaults,  context):
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
 
