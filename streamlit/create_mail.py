@@ -1,13 +1,19 @@
 import streamlit as st
-from docx import Document
 import google.generativeai as palm
+from docx import Document
 import base64
 import datetime
 import random
 import string
+
+from io import BytesIO
+
 from googletrans import Translator
 
 translator = Translator()
+
+# Konfigurasi API
+palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
@@ -32,20 +38,8 @@ def translate_text(text, dest_language):
         translation = translator.translate(text, dest=dest_language)
         return translation.text if translation else ""  # Mengembalikan teks terjemahan atau string kosong jika terjemahan tidak berhasil
 
-# Fungsi untuk membuat CV sesuai dengan format ATS
-def create_ats_formatted_cv(name, content):
-    doc = Document()
-    
-    # Adding Name
-    doc.add_heading(name, level=2)
-    
-    # Adding content
-    doc.add_paragraph(content)
-    
-    return doc
-
-# Fungsi untuk menyimpan ke file Word dengan format ATS
-def save_to_word_ats(content, bot_option):
+# Fungsi untuk menyimpan ke file Word
+def save_to_word(content, bot_option):
     # Mendapatkan timestamp saat ini untuk membuat nama file unik
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
@@ -55,51 +49,18 @@ def save_to_word_ats(content, bot_option):
     # Menambahkan data ke dokumen Word dengan nama file yang unik
     file_prefix = "CV"
     file_name = f"{file_prefix}_{timestamp}_{random_string}.docx"
-    doc = create_ats_formatted_cv("ATS CV", content)
+    doc = Document()
+    doc.add_paragraph(content)
     doc.save(file_name)
 
     return file_name
-
-# Helper function to bold text
-def bold_text(text):
-    return f"**{text}**"
-
-# Helper function to process education section
-def process_education(text):
-    education_details = text.split("\n")
-    education = []
-    for edu_detail in education_details:
-        parts = edu_detail.split(",")
-        if len(parts) == 4:
-            education.append({
-                "degree": parts[0].strip(),
-                "institution": parts[1].strip(),
-                "graduation": parts[2].strip(),
-                "gpa": parts[3].strip()
-            })
-    return education
-
-# Helper function to process experience section
-def process_experience(text):
-    experience_details = text.split("\n")
-    experience = []
-    for exp_detail in experience_details:
-        parts = exp_detail.split(",")
-        if len(parts) == 4:
-            experience.append({
-                "title": parts[0].strip(),
-                "company": parts[1].strip(),
-                "location": parts[2].strip(),
-                "dates": parts[3].strip()
-            })
-    return experience
 
 st.title("Automating CV Creation with AI")
 
 bot_option = st.sidebar.radio("Select Bot:", ("Create CV",))
 if bot_option == "Create CV":
     st.title("Create CV")
-    st.text("Use appropriate keywords: ")
+    st.text("Use appropriate keywords to create CV: : ")
     st.text("'write cv', 'compose cv', 'create cv'")
     st.text(" ")
 
@@ -127,7 +88,7 @@ if submit_button:
 
         if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
             if download_button:  # Menampilkan tombol unduh jika respons tersedia
-                file_name = save_to_word_ats(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
+                file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
                 # Menampilkan tombol unduh dengan tautan ke file output.docx
                 st.markdown(
