@@ -36,6 +36,7 @@ def translate_to_mandarin(text):
     translator = Translator()
     translation = translator.translate(text, dest='zh-CN')
     return translation.text
+    
 def translate_response(response, language):
     if language == "Mandarin":
         return translate_to_mandarin(response)
@@ -94,7 +95,7 @@ if submit_button:
         ai_response = interact_with_ai(english_input, context_bot2)
         download_button = True 
         
-        translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
+        translated_response = translate_text(english_input, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
         if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
