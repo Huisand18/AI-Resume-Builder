@@ -69,7 +69,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-user_input = st.text_area("Prompt:", max_chars=500)
+user_input = st.text_area("Prompt:", max_chars=1000)
 language_choice = st.selectbox("Select Language for Translation:", ("Indonesian", "English", "Spanish", "French", "Hindi", "Russian", "Italian", "Portuguese", "Arabic", "Mandarin"))
 submit_button = st.button("Submit")
 download_button = False
