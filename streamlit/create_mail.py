@@ -65,7 +65,7 @@ if bot_option == "Create CV":
     st.text(" ")
 
 st.sidebar.markdown(
-    '<div style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 10px; font-size: 15px; color: #ffff; box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: flex-start;"><img src="https://cdn-icons-png.flaticon.com/512/106/106852.png" style="width: 20px; margin-right: 5px;"> Copyright by Frederick H.S </div>',
+    '<div style="position: fixed; bottom: 0; left: 0; width: 100%; padding: 10px; font-size: 15px; color: #ffff; box-shadow: 0px -1px 5px rgba(0, 0, 0, 0.1); display: flex; align-items: center; justify-content: flex-start;"><img src="https://cdn-icons-png.flaticon.com/512/106/106852.png" style="width: 20px; margin-right: 5px;">Frederick H.S </div>',
     unsafe_allow_html=True
 )
 
