@@ -1,17 +1,12 @@
 import streamlit as st
-import google.generativeai as palm
 from docx import Document
 import base64
 import datetime
 import random
 import string
-from io import BytesIO
 from googletrans import Translator
 
 translator = Translator()
-
-# Konfigurasi API
-palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
@@ -59,8 +54,7 @@ def save_to_word_ats(content, bot_option):
     # Menambahkan data ke dokumen Word dengan nama file yang unik
     file_prefix = "CV"
     file_name = f"{file_prefix}_{timestamp}_{random_string}.docx"
-    doc = Document()
-    doc.add_paragraph(content)
+    doc = create_ats_formatted_cv("ATS CV", content)
     doc.save(file_name)
 
     return file_name
@@ -79,7 +73,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-user_input = st.text_area("Prompt : ")
+user_input = st.text_area("Prompt:", max_chars=500)
 language_choice = st.selectbox("Select Language for Translation:", ("Indonesian", "English", "Spanish", "French", "Hindi", "Russian", "Italian", "Portuguese", "Arabic", "Mandarin"))
 submit_button = st.button("Submit")
 download_button = False
