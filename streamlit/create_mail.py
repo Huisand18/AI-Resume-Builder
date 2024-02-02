@@ -88,7 +88,6 @@ language_choices = {
 selected_language_display = st.selectbox("Select Language for Translation:", list(language_choices.keys()))
 
 selected_language_code = language_choices[selected_language_display]
-
 submit_button = st.button("Submit")
 download_button = False
 
