@@ -1,13 +1,16 @@
 import streamlit as st
 import google.generativeai as palm
+from docx import Document
 import base64
 import datetime
 import random
 import string
 
-from docx import Document
 from io import BytesIO
+
 from googletrans import Translator
+
+translator = Translator()
 
 translator = Translator()
 
@@ -16,13 +19,12 @@ palm.configure(api_key="AIzaSyDS__6q4C6Hh3fdaSMpuX_mxAJe-f354J8")
 
 context_bot2 = "Given a topic, write cv in a concise, professional manner for"
 
-def interact_with_ai(user_input, defaults, context):
+def interact_with_ai(user_input, context):
     cv_keywords = ['write cv', 'compose cv', 'create cv']
     contains_cv_keyword = any(keyword in user_input.lower() for keyword in cv_keywords)
 
     if contains_cv_keyword:
         response = palm.chat(
-            **defaults,
             context=context,
             messages=[user_input]
         )
