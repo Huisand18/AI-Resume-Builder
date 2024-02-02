@@ -84,6 +84,14 @@ language_choices = {
     "Arabic": "ar",
     "Mandarin": "zh-CN",
 }
+
+selected_language = st.selectbox("Select Language for Translation:", list(language_choices.keys()))
+language_code = language_choices[selected_language]
+if language_code == "zh-CN":
+    selected_language_display = "Mandarin"
+else:
+    selected_language_display = selected_language
+
 submit_button = st.button("Submit")
 download_button = False
 
