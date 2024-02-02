@@ -72,7 +72,23 @@ st.sidebar.markdown(
 )
 
 user_input = st.text_area("Prompt:", max_chars=2000)
-language_choice = st.selectbox("Select Language for Translation:", ("Indonesian", "English", "Spanish", "French", "Hindi", "Russian", "Italian", "Portuguese", "Arabic", "Mandarin": "zh-CN"))
+language_choices = {
+    "Indonesian": "id",
+    "English": "en",
+    "Spanish": "es",
+    "French": "fr",
+    "Hindi": "hi",
+    "Russian": "ru",
+    "Italian": "it",
+    "Portuguese": "pt",
+    "Arabic": "ar",
+    "Mandarin": "zh-CN",
+}
+
+selected_language_display = st.selectbox("Select Language for Translation:", list(language_choices.keys()))
+
+selected_language_code = language_choices[selected_language_display]
+
 submit_button = st.button("Submit")
 download_button = False
 
