@@ -5,9 +5,7 @@ import base64
 import datetime
 import random
 import string
-
 from io import BytesIO
-
 from googletrans import Translator
 
 translator = Translator()
@@ -38,8 +36,20 @@ def translate_text(text, dest_language):
         translation = translator.translate(text, dest=dest_language)
         return translation.text if translation else ""  # Mengembalikan teks terjemahan atau string kosong jika terjemahan tidak berhasil
 
-# Fungsi untuk menyimpan ke file Word
-def save_to_word(content, bot_option):
+# Fungsi untuk membuat CV sesuai dengan format ATS
+def create_ats_formatted_cv(name, content):
+    doc = Document()
+    
+    # Adding Name
+    doc.add_heading(name, level=2)
+    
+    # Adding content
+    doc.add_paragraph(content)
+    
+    return doc
+
+# Fungsi untuk menyimpan ke file Word dengan format ATS
+def save_to_word_ats(content, bot_option):
     # Mendapatkan timestamp saat ini untuk membuat nama file unik
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
 
@@ -69,7 +79,7 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-user_input = st.text_area("Prompt:", max_chars=500)
+user_input = st.text_area("Prompt : ")
 language_choice = st.selectbox("Select Language for Translation:", ("Indonesian", "English", "Spanish", "French", "Hindi", "Russian", "Italian", "Portuguese", "Arabic", "Mandarin"))
 submit_button = st.button("Submit")
 download_button = False
@@ -88,7 +98,7 @@ if submit_button:
 
         if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
             if download_button:  # Menampilkan tombol unduh jika respons tersedia
-                file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
+                file_name = save_to_word_ats(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
                 # Menampilkan tombol unduh dengan tautan ke file output.docx
                 st.markdown(
