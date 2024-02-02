@@ -1,4 +1,5 @@
 import streamlit as st
+import google.generativeai as palm
 from docx import Document
 import base64
 import datetime
