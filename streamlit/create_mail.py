@@ -30,7 +30,7 @@ def interact_with_ai(user_input, context):
         )
         return response.last
     else:
-        return "The bot can only assist in CV creation. Please enter the CV related prompt."
+        return "cok"
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
@@ -88,7 +88,7 @@ if submit_button:
         translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
-        if "The bot can only assist in email creation. Please enter the email related prompt." not in ai_response:
+        if "cok" not in ai_response:
             if download_button:  # Menampilkan tombol unduh jika respons tersedia
                 file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
