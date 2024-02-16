@@ -30,7 +30,7 @@ def interact_with_ai(user_input, context):
         )
         return response.last
     else:
-        return "cok"
+        return "fghjk"
 
 # Fungsi untuk menerjemahkan teks ke bahasa yang dipilih
 def translate_text(text, dest_language):
