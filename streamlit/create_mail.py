@@ -88,8 +88,7 @@ if submit_button:
         translated_response = translate_text(ai_response, language_choice)  # Terjemahkan respon bot ke bahasa yang dipilih
         st.text_area("Result (Translated):", value=translated_response, height=200)
 
-        if "cok" not in ai_response:
-            if download_button:  # Menampilkan tombol unduh jika respons tersedia
+        if download_button:  # Menampilkan tombol unduh jika respons tersedia
                 file_name = save_to_word(translated_response, bot_option)  # Simpan respon terjemahan ke dalam dokumen Word
 
                 # Menampilkan tombol unduh dengan tautan ke file output.docx
